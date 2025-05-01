@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박태현 이력서</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1100;
+      background: teal;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #fff;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      height: 100vh;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      transition: left 0.3s ease;
+    }
+
+    .sidebar h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: teal;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .sidebar ul li a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .sidebar ul li a.active {
+      font-weight: bold;
+      color: teal;
+    }
+
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      flex: 1;
+      padding: 40px;
+      background-color: #fff;
+      overflow-y: auto;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      border-bottom: 2px solid #000;
+      padding-bottom: 5px;
+      font-size: 20px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .highlight {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .subinfo {
+      color: #555;
+    }
+
+    .photo {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #ccc;
+      object-fit: cover;
+    }
+
+    a {
+      color: teal;
+      text-decoration: none;
+    }
+
+    .url-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f0f0f0;
+      font-family: monospace;
+      word-break: break-all;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        z-index: 1000;
+        background: white;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      body {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-toggle" onclick="toggleMenu()">☰ 메뉴</div>
+  <div class="sidebar">
+    <h3><a href="#basic">기본 정보</a></h3>
+    <ul>
+      <li><a href="#skills">기술 스택</a></li>
+      <li><a href="#career">경력</a></li>
+      <li><a href="#portpolio">포트폴리오</a></li>
+      <li><a href="#education">교육</a></li>
+      <li><a href="#cerificate">수상 및 자격</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div class="section" id='basic'>
+      <div class="profile">
+        <div>
+          <div class="highlight">박태현</div>
+          <div class="subinfo">게임 개발자</div>
+          <p>이메일: taehyun0001@gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="skills">
+      <h2>기술 스택</h2>
+      <p><strong>Unity</strong> : C#</p>
+      <p><strong>시스템 엔지니어</strong> : Linux, C, Raspberry PI, Arduino</p>
+    </div>
+
+    <div class="section" id="career">
+      <h2>경력</h2>
+      <p><strong>졸업작품 프로젝트</strong> - 1인칭 공포게임 프로젝트 Karma (2025.03 ~ )</p>
+      <p>∙ Blender를 사용한 3D 모델링 및 리깅</p>
+      <p>∙ 게임 내 적 오브잭트 AI, 이상 현상 관리 스크립트</p>
+    </div>
+
+    <div class="section" id="portpolio">
+        <h2>포트폴리오</h2>
+        <p><strong>졸업 작품 URL</strong> </p>
+        <div class="url-box">
+            https://github.com/RAMB-02/GDevs
+        </div>
+    </div>
+
+    <div class="section" id="education">
+        <h2>교육</h2>
+        <p><strong>동양미래대학교</strong> - 컴퓨터소프트웨어공학과 (2021.03-2026.2)</p>
+        <p><strong>고림고등학교</strong> - (2018.03-2021.1)</p>
+    </div>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar ul li a');
+    const content = document.querySelector('.content');
+
+    content.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (content.scrollTop >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    function toggleMenu() {
+      document.querySelector('.sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
